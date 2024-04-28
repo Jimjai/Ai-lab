@@ -1,0 +1,10 @@
+def calculate_factorial():
+    n = int(input("Enter a positive integer to find its factorial: "))
+    factorial = 1
+    
+    for i in range(1, n + 1):
+        factorial *= i  # Multiplying the current number with the factorial of previous numbers
+    
+    print(f"The factorial of {n} is {factorial}.")
+
+calculate_factorial()
