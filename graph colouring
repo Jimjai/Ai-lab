@@ -1,0 +1,29 @@
+
+def graph_coloring(graph):
+    color_result = {}
+    order = list(graph.keys())
+    
+    color_result[order[0]] = 0
+    
+    for vertex in order[1:]:
+        available_colors = set(range(len(graph)))
+        
+        for neighbor in graph[vertex]:
+            if neighbor in color_result and color_result[neighbor] in available_colors:
+                available_colors.remove(color_result[neighbor])
+        
+        color_result[vertex] = min(available_colors)
+    
+    return color_result
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C', 'E'],
+    'E': ['D']
+}
+
+coloring = graph_coloring(graph)
+for vertex, color in coloring.items():
+    print(f"Vertex {vertex}: Color {color}")
