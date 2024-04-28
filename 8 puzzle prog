@@ -1,0 +1,49 @@
+from collections import deque
+
+def solve_8_puzzle(initial, goal):
+    def find_position(state, element):
+        for i in range(3):
+            for j in range(3):
+                if state[i][j] == element:
+                    return (i, j)
+
+    def generate_moves(state):
+        row, col = find_position(state, 0)
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        result = []
+
+        for d in directions:
+            new_row, new_col = row + d[0], col + d[1]
+            if 0 <= new_row < 3 and 0 <= new_col < 3:
+                new_state = [list(row) for row in state]
+                new_state[row][col], new_state[new_row][new_col] = new_state[new_row][new_col], new_state[row][col]
+                result.append(new_state)
+        return result
+
+    def state_to_tuple(state):
+        return tuple(tuple(row) for row in state)
+
+    queue = deque([(initial, 0)])
+    seen = set()
+    seen.add(state_to_tuple(initial))
+
+    while queue:
+        current_state, depth = queue.popleft()
+        if current_state == goal:
+            return depth
+
+        for new_state in generate_moves(current_state):
+            new_state_tuple = state_to_tuple(new_state)
+            if new_state_tuple not in seen:
+                seen.add(new_state_tuple)
+                queue.append((new_state, depth + 1))
+    
+    return -1  # If no solution
+
+# Define initial state and goal state
+initial = [[1, 2, 3], [4, 5, 6], [7, 0, 8]]  # 0 represents the empty space
+goal = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+
+# Get the result
+result = solve_8_puzzle(initial, goal)
+print("Minimum number of steps to reach the goal state:", result)
