@@ -1,0 +1,14 @@
+% a. Ram likes mango.
+likes(ram, mango).
+
+% b. Seema is a girl.
+is_a(seema, girl).
+
+% c. Bill likes Cindy.
+likes(bill, cindy).
+
+% d. Rose is red.
+is_color(rose, red).
+
+% e. John owns gold.
+owns(john, gold).
