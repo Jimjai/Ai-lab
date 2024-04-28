@@ -1,1 +1,32 @@
+def solve_n_queens(n):
+    def is_attack(i, j):
+        for k in range(0, n):
+            if board[i][k] == 1 or board[k][j] == 1:
+                return True
+        for k in range(0, n):
+            for l in range(0, n):
+                if (k + l == i + j) or (k - l == i - j):
+                    if board[k][l] == 1:
+                        return True
+        return False
 
+    def n_queen(n, i):
+        if n == i:
+            return True
+        for j in range(0, n):
+            if not is_attack(i, j):
+                board[i][j] = 1
+                if n_queen(n, i + 1):
+                    return True
+                board[i][j] = 0
+        return False
+
+    board = [[0 for i in range(n)] for j in range(n)]
+    if n_queen(n, 0):
+        for i in range(n):
+            print(board[i])
+    else:
+        print("No feasible solution")
+
+n = int(input("Enter the number of Queens: "))
+solve_n_queens(n)
