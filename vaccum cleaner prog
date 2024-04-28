@@ -1,0 +1,31 @@
+def vacuum_cleaner():
+    location = input("Enter LOCATION A/B: ")
+    status = int(input("Enter Status 0/1: "))
+
+    cost = 0
+    actions = []
+
+    if status == 1:
+        actions.append('Clean')
+        cost += 1
+        print(f"Cleaning at Location {location}")
+    
+    if location == 'A':
+        other_location = 'B'
+    else:
+        other_location = 'A'
+
+    other_status = int(input(f"Enter Status of {other_location} 0/1: "))
+    
+    actions.append(f"Move to {other_location}")
+    cost += 1
+
+    if other_status == 1:
+        actions.append('Clean')
+        cost += 1
+        print(f"Cleaning at Location {other_location}")
+
+    print(f"Actions taken: {actions}")
+    print(f"Total cost: {cost}")
+
+vacuum_cleaner()
