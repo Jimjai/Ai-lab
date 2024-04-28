@@ -1,0 +1,25 @@
+def water_jug_solver(x, y, path, goal):
+    if x == goal or y == goal:
+        print(f"Final solution to achieve {goal} liters: {path}")
+        return True
+    if (x, y) in visited:
+        return False
+    visited.add((x, y))
+    path.append((x, y))
+    
+    # Try all possible moves:
+    if water_jug_solver(4, y, path.copy(), goal): return True
+    if water_jug_solver(x, 3, path.copy(), goal): return True
+    if water_jug_solver(0, y, path.copy(), goal): return True
+    if water_jug_solver(x, 0, path.copy(), goal): return True
+    transfer = min(x, 3 - y)
+    if water_jug_solver(x - transfer, y + transfer, path.copy(), goal): return True
+    transfer = min(y, 4 - x)
+    if water_jug_solver(x + transfer, y - transfer, path.copy(), goal): return True
+    path.pop()
+    return False
+
+visited = set()
+path = []
+if not water_jug_solver(0, 0, path, 2):
+    print("No solution found")
