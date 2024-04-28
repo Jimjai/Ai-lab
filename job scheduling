@@ -1,0 +1,23 @@
+def schedule_jobs(jobs, max_deadline):
+    jobs.sort(key=lambda x: -x['profit'])
+    result = [-1] * max_deadline
+    
+    for job in jobs:
+        for i in range(min(max_deadline, job['deadline']) - 1, -1, -1):
+            if result[i] == -1:
+                result[i] = job['id']
+                break
+    
+    return [job for job in result if job != -1]
+
+jobs = [
+    {'id': 'a', 'deadline': 2, 'profit': 100},
+    {'id': 'b', 'deadline': 1, 'profit': 19},
+    {'id': 'c', 'deadline': 2, 'profit': 27},
+    {'id': 'd', 'deadline': 1, 'profit': 25},
+    {'id': 'e', 'deadline': 3, 'profit': 15}
+]
+
+max_deadline = max(job['deadline'] for job in jobs)
+scheduled_jobs = schedule_jobs(jobs, max_deadline)
+print("Scheduled Jobs:", scheduled_jobs)
